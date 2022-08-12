@@ -1,14 +1,15 @@
+/* eslint-disable @next/next/link-passhref */
+import { Button, Center } from '@chakra-ui/react'
 import Link from 'next/link'
 
 function Home() {
+  const ll = '/admin/cadastro'
   return (
-    <ul>
-      <li>
-        <Link href="/admin/abc">
-          <a>Go to pages/post/[pid].js</a>
-        </Link>
-      </li>
-    </ul>
+    <Center>
+      <Link href={ll}>
+        <Button bg="#0078F0">Acesso</Button>
+      </Link>
+    </Center>
   )
 }
 

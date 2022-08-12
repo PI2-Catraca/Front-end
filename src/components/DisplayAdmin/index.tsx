@@ -1,10 +1,11 @@
-import { Grid, GridItem, HStack } from '@chakra-ui/react'
+import { Grid, GridItem, HStack, Box } from '@chakra-ui/react'
 import Sidebar from 'components/Sidebar'
+import GridSteps from 'components/Steps'
 
 export default function Home() {
   return (
     <Grid
-      minH="100vh"
+      minH="100%"
       h="100%"
       templateRows="repeat(1, 1fr)"
       templateColumns="repeat(5, 1fr)"
@@ -16,10 +17,12 @@ export default function Home() {
           children={undefined}
         />
       </GridItem>
-      <GridItem h="100%" colSpan={4}>
-        <HStack w="100%" h="100%" bg="tomato">
-          Sasdasdas
-        </HStack>
+      <GridItem h="100%" w="100%" colSpan={4}>
+        <Box p={4} color="black" borderWidth="1px" borderRadius="lg">
+          <HStack h="100%" w="100%">
+            <GridSteps />
+          </HStack>
+        </Box>
       </GridItem>
     </Grid>
   )

@@ -20,20 +20,22 @@ import { FiHome, FiTrendingUp, FiBell, FiMenu } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { ReactText } from 'react'
 
+import { useRouter } from 'next/router'
 interface LinkItemProps {
   name: string
   icon: IconType
+  to: string
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Cadastro', icon: FiHome },
-  { name: 'Reltório', icon: FiTrendingUp },
-  { name: 'Notificação', icon: FiBell }
+  { name: 'Cadastro', icon: FiHome, to: 'cadastro' },
+  { name: 'Reltório', icon: FiTrendingUp, to: 'relatorio' },
+  { name: 'Notificação', icon: FiBell, to: 'notificacao' }
 ]
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Box minH="100vh" bg="gray.100">
+    <Box minH="100%">
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}
@@ -69,7 +71,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     <Box
       bg="white"
       borderRight="1px"
-      borderRightColor="gray.200"
+      borderRightColor="white"
       w={{ base: 'full', md: 60 }}
       pos="fixed"
       h="full"
@@ -88,7 +90,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={link.to}>
           {link.name}
         </NavItem>
       ))}
@@ -99,11 +101,15 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType
   children: ReactText
+  href: string
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, children, href, ...rest }: NavItemProps) => {
+  const router = useRouter()
+  console.log(router.pathname)
+  const isActive = router.pathname === `/admin/${href}`
   return (
     <Link
-      href="#"
+      href={href}
       style={{ textDecoration: 'none' }}
       _focus={{ boxShadow: 'none' }}
     >
@@ -118,6 +124,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
           bg: '#0078F0',
           color: 'white'
         }}
+        __css={isActive ? { bg: '#0078F0', color: 'white' } : ''}
         {...rest}
       >
         {icon && (
