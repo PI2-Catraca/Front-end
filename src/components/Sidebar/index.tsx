@@ -16,11 +16,11 @@ import {
   Avatar,
   VStack
 } from '@chakra-ui/react'
-import { FiHome, FiTrendingUp, FiBell, FiMenu } from 'react-icons/fi'
-import { IconType } from 'react-icons'
+import { FiHome, FiTrendingUp, FiMenu } from 'react-icons/fi'
+import { BiLogOut } from 'react-icons/bi'
 import { ReactText } from 'react'
-
-import { useRouter } from 'next/router'
+import { destroyCookie } from 'nookies'
+import Router, { useRouter } from 'next/router'
 interface LinkItemProps {
   name: string
   icon: IconType
@@ -28,10 +28,13 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Cadastro', icon: FiHome, to: 'cadastro' },
-  { name: 'Reltório', icon: FiTrendingUp, to: 'relatorio' },
-  { name: 'Notificação', icon: FiBell, to: 'notificacao' }
+  { name: 'Reltório', icon: FiTrendingUp, to: 'relatorio' }
+  // { name: 'Notificação', icon: FiBell, to: 'notificacao' }
 ]
-
+function logout() {
+  destroyCookie({}, 'nextauth.token')
+  Router.push('/')
+}
 export default function SimpleSidebar({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
@@ -77,7 +80,13 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex
+        h="20"
+        w="100%"
+        alignItems="center"
+        mx="8"
+        justifyContent="space-between"
+      >
         <Avatar name="A D" src="https://bit.ly/broken-link" />
         <VStack align="baseline">
           <Text fontSize="md" fontFamily="monospace" fontWeight="bold">
@@ -88,6 +97,17 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </Text>
         </VStack>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
+
+        <IconButton
+          variant="outline"
+          onClick={logout}
+          aria-label="logout"
+          _hover={{
+            bg: '#0078F0',
+            color: 'white'
+          }}
+          icon={<BiLogOut />}
+        />
       </Flex>
       {LinkItems.map((link) => (
         <NavItem key={link.name} icon={link.icon} href={link.to}>

@@ -1,12 +1,12 @@
+import DisplayAdmin from '../../components/DisplayAdmin'
+import GridSteps from 'components/Table'
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import DisplayAdmin from '../../components/DisplayAdmin'
-import GridSteps from 'components/Steps'
 
 export default function DisplayCadastro() {
   return (
     <DisplayAdmin>
-      <GridSteps></GridSteps>
+      <GridSteps />
     </DisplayAdmin>
   )
 }
