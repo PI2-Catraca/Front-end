@@ -9,20 +9,26 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Modal,
   ModalContent,
   Stack,
   VStack
 } from '@chakra-ui/react'
+import { AuthContext } from 'context/AuthContext'
+import { useContext } from 'react'
+import { useForm } from 'react-hook-form'
 
 const Login = () => {
+  const { handleSubmit, register } = useForm()
+  const { SignIn } = useContext(AuthContext)
+  async function onSubmit(data) {
+    await SignIn(data)
+  }
   return (
     <ChakraProvider>
       <Modal
         isOpen
         // eslint-disable-next-line react/no-children-prop
-
         size="full"
       >
         <ModalContent h="100%">
@@ -42,28 +48,47 @@ const Login = () => {
               <VStack h="100%" spacing="auto" align="center">
                 <Heading color="#0078F0">Login</Heading>
                 <Avatar bg="#0078F0" />
-                <Stack w="100%" spacing={5}>
-                  <InputGroup>
-                    <Input variant="flushed" placeholder="Usiário" />
-                    <InputRightElement
-                      // eslint-disable-next-line react/no-children-prop
-                      children={<LockIcon color="#0078F0" />}
-                    />
-                  </InputGroup>
-                  <InputGroup>
-                    <Input
-                      variant="flushed"
-                      placeholder="Senha"
-                      type="password"
-                    />
-                    <InputRightElement
-                      // eslint-disable-next-line react/no-children-prop
-                      children={<LockIcon color="#0078F0" />}
-                    />
-                  </InputGroup>
-                </Stack>
-                <Link href="/admi">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Stack w="100%" spacing={5}>
+                    <InputGroup>
+                      <Input
+                        variant="flushed"
+                        placeholder="Usiário"
+                        {...register('email', {
+                          required: 'This is required',
+                          minLength: {
+                            value: 4,
+                            message: 'Minimum length should be 4'
+                          }
+                        })}
+                      />
+                      <InputRightElement
+                        // eslint-disable-next-line react/no-children-prop
+                        children={<LockIcon color="#0078F0" />}
+                      />
+                    </InputGroup>
+                    <InputGroup>
+                      <Input
+                        variant="flushed"
+                        placeholder="Senha"
+                        type="password"
+                        {...register('password', {
+                          required: 'This is required',
+                          minLength: {
+                            value: 4,
+                            message: 'Minimum length should be 4'
+                          }
+                        })}
+                      />
+                      <InputRightElement
+                        // eslint-disable-next-line react/no-children-prop
+                        children={<LockIcon color="#0078F0" />}
+                      />
+                    </InputGroup>
+                  </Stack>
+
                   <Button
+                    type="submit"
                     w="100%"
                     color="#0078F0"
                     border="2px"
@@ -75,7 +100,7 @@ const Login = () => {
                   >
                     ENTRAR
                   </Button>
-                </Link>
+                </form>
               </VStack>
             </Box>
           </Center>
