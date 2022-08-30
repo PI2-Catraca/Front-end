@@ -1,4 +1,4 @@
 import DisplayAdmin from '../DisplayAdmin'
 export default function Admin() {
-  return <DisplayAdmin />
+  return <DisplayAdmin>tesdte</DisplayAdmin>
 }

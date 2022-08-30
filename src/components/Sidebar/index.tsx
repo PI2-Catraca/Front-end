@@ -16,7 +16,7 @@ import {
   Avatar,
   VStack
 } from '@chakra-ui/react'
-import { FiHome, FiTrendingUp, FiBell, FiMenu } from 'react-icons/fi'
+import { FiHome, FiTrendingUp, FiMenu } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 import { ReactText } from 'react'
 
@@ -28,8 +28,8 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Cadastro', icon: FiHome, to: 'cadastro' },
-  { name: 'Reltório', icon: FiTrendingUp, to: 'relatorio' },
-  { name: 'Notificação', icon: FiBell, to: 'notificacao' }
+  { name: 'Reltório', icon: FiTrendingUp, to: 'relatorio' }
+  // { name: 'Notificação', icon: FiBell, to: 'notificacao' }
 ]
 
 export default function SimpleSidebar({ children }: { children: ReactNode }) {

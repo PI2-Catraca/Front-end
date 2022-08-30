@@ -1,8 +1,7 @@
 import { Grid, GridItem, HStack, Box } from '@chakra-ui/react'
 import Sidebar from 'components/Sidebar'
-import GridSteps from 'components/Steps'
 
-export default function Home() {
+export default function Home({ children }) {
   return (
     <Grid
       minH="100%"
@@ -20,7 +19,7 @@ export default function Home() {
       <GridItem h="100%" w="100%" colSpan={4}>
         <Box p={4} color="black" borderWidth="1px" borderRadius="lg">
           <HStack h="100%" w="100%">
-            <GridSteps />
+            {children}
           </HStack>
         </Box>
       </GridItem>

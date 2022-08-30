@@ -1,5 +1,5 @@
 import DisplayAdmin from '../../components/DisplayAdmin'
-import GridSteps from 'components/Steps'
+import GridSteps from 'components/Table'
 
 export default function DisplayCadastro() {
   return (
