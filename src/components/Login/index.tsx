@@ -20,10 +20,15 @@ import { useForm } from 'react-hook-form'
 
 const Login = () => {
   const { handleSubmit, register } = useForm()
+  // const { response, setresponse } = useState(true)
   const { SignIn } = useContext(AuthContext)
+
   async function onSubmit(data) {
     await SignIn(data)
+    // console.log(Singinresp)
+    // setresponse(Singinresp)
   }
+
   return (
     <ChakraProvider>
       <Modal
@@ -101,6 +106,13 @@ const Login = () => {
                     ENTRAR
                   </Button>
                 </form>
+                {/* {response === false ? (
+                  <Box bg="red" w="100%" p={4} color="white">
+                    Algo deu errado, tente novamente
+                  </Box>
+                ) : (
+                  []
+                )} */}
               </VStack>
             </Box>
           </Center>

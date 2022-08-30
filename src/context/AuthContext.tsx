@@ -36,13 +36,15 @@ export function AuthProvider({ children }) {
       .then((res) => res.json())
       .catch((err) => console.error('error:' + err))
 
-    setCookie(undefined, 'nextauth.token', testar, {
-      maxAge: 60 * 60 * 1
-    })
-    if (testar) {
+    if (testar.access_token) {
+      setCookie(undefined, 'nextauth.token', testar, {
+        maxAge: 60 * 60 * 1
+      })
       setToken(testar)
       Router.push('/admin/cadastro')
+      return true
     }
+    return false
   }
 
   return (
