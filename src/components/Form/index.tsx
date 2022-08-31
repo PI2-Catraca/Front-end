@@ -3,16 +3,14 @@ import { Input, Stack, Text } from '@chakra-ui/react'
 
 export default function Form({ InfoForm }) {
   const [name, setName] = useState('')
-  const [sobrenome, setSobrenome] = useState('')
   const [cpf, setCpf] = useState('')
   useEffect(() => {
     InfoForm({
       name,
-      sobrenome,
       cpf
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, sobrenome, cpf])
+  }, [name, cpf])
 
   return (
     <Stack spacing={9}>
@@ -20,21 +18,10 @@ export default function Form({ InfoForm }) {
         <Text mb="8px">Nome</Text>
         <Input
           value={name}
-          placeholder="Nome"
+          placeholder="Nome completo"
           size="sm"
           onChange={(e) => {
             setName(e.target.value)
-          }}
-        />
-      </div>
-      <div>
-        <Text mb="8px">Sobrenome</Text>
-        <Input
-          value={sobrenome}
-          placeholder="Sobrenome"
-          size="sm"
-          onChange={(e) => {
-            setSobrenome(e.target.value)
           }}
         />
       </div>

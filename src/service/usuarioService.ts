@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default class UsuarioService {
-  async criarUsuario(nome: string, cpf: string, fotos: any) {
+  async criarUsuario(nome: string, cpf: string, fotos: string) {
     const data = {
       nome,
       cpf,
