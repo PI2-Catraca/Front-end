@@ -58,9 +58,9 @@ const Login = () => {
                     <InputGroup>
                       <Input
                         variant="flushed"
-                        placeholder="Usiário"
+                        placeholder="E-mail"
                         {...register('email', {
-                          required: 'This is required',
+                          required: 'Campo obrigatório',
                           minLength: {
                             value: 4,
                             message: 'Minimum length should be 4'
@@ -78,7 +78,7 @@ const Login = () => {
                         placeholder="Senha"
                         type="password"
                         {...register('password', {
-                          required: 'This is required',
+                          required: 'Campo obrigatório',
                           minLength: {
                             value: 4,
                             message: 'Minimum length should be 4'

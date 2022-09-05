@@ -5,6 +5,8 @@ import { BiFingerprint } from 'react-icons/bi'
 import WebCam from 'components/WebCam'
 import Form from 'components/Form'
 import { useEffect, useState } from 'react'
+import UsuarioService from 'service/usuarioService'
+
 const steps = [
   { label: 'Login', icon: FiUser },
   { label: 'Verification', icon: FiClipboard },
@@ -29,10 +31,24 @@ export const GridSteps = () => {
   }, [activeStep])
   const addPostlist = (postitem) => setPostList(postitem)
   const addImages = (postitem) => setListImages(postitem)
+
   function ClearAll() {
     setAllInfo([])
     setPostList([])
     reset(0)
+  }
+
+  async function enviarDados() {
+    const user = {
+      cpf: postList.cpf,
+      name: postList.name,
+      fotos: postList.allphoto.map((photo) => photo.split(',')[1] )
+    }
+
+    const usuarioService = new UsuarioService();
+    await usuarioService.criarUsuario(user.cpf, user.name, user.fotos);
+
+    nextStep();
   }
 
   return (
@@ -51,7 +67,7 @@ export const GridSteps = () => {
       {activeStep === steps.length ? (
         <Flex px={4} py={4} width="100%" flexDirection="column">
           <Heading fontSize="xl" textAlign="center">
-            Cadatro realizado com sucesso
+            Cadastro realizado com sucesso
           </Heading>
           <Button
             mx="auto"
@@ -75,9 +91,16 @@ export const GridSteps = () => {
           >
             Voltar
           </Button>
-          <Button size="sm" onClick={nextStep}>
-            {activeStep === steps.length - 1 ? 'Cadastra' : 'Proximo'}
-          </Button>
+
+          {activeStep === steps.length - 1 ? 
+            <Button size="sm" onClick={enviarDados}>
+              Cadastrar
+            </Button>
+            :
+            <Button size="sm" onClick={nextStep}>
+              Próximo
+            </Button>
+          }
         </Flex>
       )}
     </Flex>
