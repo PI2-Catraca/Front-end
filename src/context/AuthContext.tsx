@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react'
 import { setCookie } from 'nookies'
 import Router from 'next/router'
+import axios from 'axios'
 
 type AuthContextType = {
   isAuthenticated: boolean
@@ -19,28 +20,26 @@ export function AuthProvider({ children }) {
   const isAuthenticated = !!token
 
   async function SignIn({ email, password }: SignInData) {
-    const url = 'http://localhost:8080/auth/login'
     const options = {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: email,
-        password: password
-      })
+      // url: 'http://localhost:5000/api/usuario/login',
+      url: process.env.NEXT_PUBLIC_API_URL,
+      headers: { 'Content-Type': 'application/json' },
+      data: { email: email, senha: password }
     }
-    console.log('pqp', options)
-    const testar = await fetch(url, options)
-      .then((res) => res.json())
-      .catch((err) => console.error('error:' + err))
 
-    if (testar.access_token) {
-      setCookie(undefined, 'nextauth.token', testar, {
+    const data = await axios
+      .request(options)
+      .then((response) => response.data.data)
+      .catch((error) => {
+        console.error(error)
+      })
+    console.log(data)
+    if (data.token) {
+      setCookie(undefined, 'nextauth.token', data.token, {
         maxAge: 60 * 60 * 1
       })
-      setToken(testar)
+      setToken(data.token)
       Router.push('/admin/cadastro')
       return true
     }
