@@ -25,8 +25,6 @@ const Login = () => {
 
   async function onSubmit(data) {
     await SignIn(data)
-    // console.log(Singinresp)
-    // setresponse(Singinresp)
   }
 
   return (

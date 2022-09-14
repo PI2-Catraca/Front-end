@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
     const options = {
       method: 'POST',
       // url: 'http://localhost:5000/api/usuario/login',
-      url: process.env.NEXT_PUBLIC_API_URL,
+      url: `${process.env.NEXT_PUBLIC_API_URL}/usuario/login`,
       headers: { 'Content-Type': 'application/json' },
       data: { email: email, senha: password }
     }
@@ -31,10 +31,8 @@ export function AuthProvider({ children }) {
     const data = await axios
       .request(options)
       .then((response) => response.data.data)
-      .catch((error) => {
-        console.error(error)
-      })
-    console.log(data)
+      .catch((error) => error)
+
     if (data.token) {
       setCookie(undefined, 'nextauth.token', data.token, {
         maxAge: 60 * 60 * 1

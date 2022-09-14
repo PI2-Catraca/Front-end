@@ -4,62 +4,15 @@ import { useTable, useSortBy } from 'react-table'
 import React from 'react'
 import Modal from 'components/Modal'
 
-function DataTable() {
-  const data = React.useMemo(
-    () => [
-      {
-        createdAt: '2022-08-30T10:53:31.752Z',
-        name: 'Joe',
-        avatar:
-          'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/324.jpg',
-        datein: '2022-08-29T22:25:59.263Z',
-        dateout: '2022-08-29T21:10:28.947Z',
-        sobrenome: 'Weimann',
-        cpf: '925.030.180-41',
-        id: '1'
-      },
-      {
-        createdAt: '2022-08-30T16:11:45.823Z',
-        name: 'Moises',
-        avatar:
-          'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/108.jpg',
-        datein: '2022-08-30T17:02:08.313Z',
-        dateout: '2022-08-29T20:24:46.212Z',
-        sobrenome: 'Stoltenberg',
-        cpf: '925.030.180-41',
-        id: '2'
-      },
-      {
-        createdAt: '2022-08-30T05:06:19.906Z',
-        name: 'Nicole',
-        avatar:
-          'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/519.jpg',
-        datein: '2022-08-29T19:18:35.730Z',
-        dateout: '2022-08-29T20:42:35.463Z',
-        sobrenome: 'Wiegand',
-        cpf: '925.030.180-41',
-        id: '3'
-      },
-      {
-        createdAt: '2022-08-30T08:40:00.724Z',
-        name: 'Hal',
-        avatar:
-          'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/642.jpg',
-        datein: '2022-08-29T23:52:12.587Z',
-        dateout: '2022-08-29T18:40:34.037Z',
-        sobrenome: 'Bednar',
-        cpf: '925.030.180-41',
-        id: '4'
-      }
-    ],
-    []
-  )
+function DataTable({ dataTable }) {
+  /* eslint-disable */
+  const data = React.useMemo(() => dataTable.usuarios || [], [])
 
   const columns = React.useMemo(
     () => [
       {
         Header: 'NOME',
-        accessor: 'name'
+        accessor: 'nome'
       },
       {
         Header: 'CPF',
@@ -72,8 +25,6 @@ function DataTable() {
           const d = new Date(row.row.original.datein)
           return <p>{d.toLocaleString()}</p>
         }
-
-        // <Button onClick={(e) => console.log(row.row.original)}>Edit</Button>
       },
       {
         Header: 'DATA-SAIDA',
@@ -86,11 +37,7 @@ function DataTable() {
       {
         Header: 'Action',
         accessor: 'action',
-        Cell: (row) => (
-          <Modal data={row.row.original} />
-
-          // <Button onClick={(e) => console.log(row.row.original)}>Edit</Button>
-        )
+        Cell: (row) => <Modal data={row.row.original} />
       }
     ],
     []

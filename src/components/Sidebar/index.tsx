@@ -125,7 +125,7 @@ interface NavItemProps extends FlexProps {
 }
 const NavItem = ({ icon, children, href, ...rest }: NavItemProps) => {
   const router = useRouter()
-  console.log(router.pathname)
+
   const isActive = router.pathname === `/admin/${href}`
   return (
     <Link

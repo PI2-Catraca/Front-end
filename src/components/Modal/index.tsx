@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react'
 
 const ModalCuston = ({ data }) => {
-  console.log('modal', data)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
@@ -38,7 +37,7 @@ const ModalCuston = ({ data }) => {
 
             <FormControl>
               <FormLabel>Nome</FormLabel>
-              <Input type="name" defaultValue={data.name} />
+              <Input type="name" defaultValue={data.nome} />
               <FormLabel>Sobrenome</FormLabel>
               <Input type="name" defaultValue={data.sobrenome} />
               <FormLabel>CPF</FormLabel>
