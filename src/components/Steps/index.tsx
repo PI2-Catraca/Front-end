@@ -103,8 +103,7 @@ export const GridSteps = () => {
         {
           isLoading ?
           <h3>
-            Coloque o dedo sobre o sensor, aguarde alguns segundos, e remova o dedo.
-            Repita o processo.
+            Coloque o dedo sobre o sensor, aguarde alguns segundos, e remova o dedo. Repita o processo.
           </h3>
           :
           <div></div>
@@ -139,7 +138,7 @@ export const GridSteps = () => {
             Voltar
           </Button>
           <Button size="sm" onClick={nextStep}>
-            {activeStep === steps.length - 1 ? 'Cadastra' : 'Proximo'}
+            {activeStep === steps.length - 1 ? 'Cadastra' : 'Próximo'}
           </Button>
         </Flex>
       )}
