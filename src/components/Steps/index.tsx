@@ -13,7 +13,7 @@ const steps = [
 ]
 
 async function PostUser(allinfo) {
-  console.log(allinfo)
+ 
   const options = {
     method: 'POST',
     url: `${process.env.NEXT_PUBLIC_API_URL}/usuario/novo`,
@@ -21,12 +21,14 @@ async function PostUser(allinfo) {
     data: {
       administrador: false,
       senha: '',
-      cpf: allinfo.cpf,
-      nome: allinfo.name,
-      fotos: allinfo.allphoto
+      cpf: allinfo[0].cpf,
+      nome: allinfo[0].name,
+      biometria: allinfo[1].biometria,
+      fotos: allinfo[0].allphoto
+
     }
   }
-
+  console.log("options",options)
   await axios
     .request(options)
     .then((response) => console.log(response))
@@ -40,10 +42,10 @@ export const GridSteps = () => {
   const [postList, setPostList] = useState([])
   const [allinfo, setAllInfo] = useState([])
   const [listImages, setListImages] = useState([])
+  const [postFinger, setPostFinger] = useState('')
 
   useEffect(() => {
     activeStep === 1 ? setAllInfo(postList) : []
-
     activeStep === 2
       ? setAllInfo(Object.assign(allinfo, { allphoto: listImages }))
       : []
@@ -58,6 +60,18 @@ export const GridSteps = () => {
     setPostList([])
     reset(0)
   }
+  const addFinger = async () => {
+    var options = {method: 'GET', url: 'http://localhost:8001/getDat'};
+
+    const response = await axios.request(options).then( (response)=> setAllInfo(allinfo => [allinfo, response.data])
+    ).catch(function (error) {
+      console.error(error);
+    });
+    
+    console.log(response);
+    // () => setAllInfo(allinfo => [...allinfo, fifi])
+  }
+  
   return (
     <Flex flexDir="column" width="100%">
       <Steps activeStep={activeStep} m="10px">
@@ -68,13 +82,15 @@ export const GridSteps = () => {
           <WebCam imagensProps={addImages} />
         </Step>
         <Step label="Digital" key="3" icon={BiFingerprint}>
-          <Input type="file" />
+        <Button onClick={addFinger} colorScheme='teal' w="200px">
+         Cadastra Digital
+        </Button>
         </Step>
       </Steps>
       {activeStep === steps.length ? (
         <Flex px={4} py={4} width="100%" flexDirection="column">
           <Heading fontSize="xl" textAlign="center">
-            Cadatro realizado com sucesso
+            Cadastro realizado com sucesso
           </Heading>
           <Button
             mx="auto"
