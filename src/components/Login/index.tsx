@@ -56,7 +56,7 @@ const Login = () => {
                     <InputGroup>
                       <Input
                         variant="flushed"
-                        placeholder="Usiário"
+                        placeholder="E-mail"
                         {...register('email', {
                           required: 'This is required',
                           minLength: {
@@ -83,13 +83,14 @@ const Login = () => {
                           }
                         })}
                       />
+                      
                       <InputRightElement
                         // eslint-disable-next-line react/no-children-prop
                         children={<LockIcon color="#0078F0" />}
                       />
                     </InputGroup>
                   </Stack>
-
+                  <br />
                   <Button
                     type="submit"
                     w="100%"

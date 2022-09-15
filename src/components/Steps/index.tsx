@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Input } from '@chakra-ui/react'
+import { Button, Flex, Heading, Input, Spinner } from '@chakra-ui/react'
 import { Step, Steps, useSteps } from 'chakra-ui-steps'
 import { FiClipboard, FiUser } from 'react-icons/fi'
 import { BiFingerprint } from 'react-icons/bi'
@@ -43,6 +43,7 @@ export const GridSteps = () => {
   const [allinfo, setAllInfo] = useState([])
   const [listImages, setListImages] = useState([])
   const [postFinger, setPostFinger] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     activeStep === 1 ? setAllInfo(postList) : []
@@ -63,11 +64,12 @@ export const GridSteps = () => {
   const addFinger = async () => {
     var options = {method: 'GET', url: 'http://localhost:8001/getDat'};
 
+    setIsLoading(true)
     const response = await axios.request(options).then( (response)=> setAllInfo(allinfo => [allinfo, response.data])
     ).catch(function (error) {
       console.error(error);
     });
-    
+    setIsLoading(false)
     console.log(response);
     // () => setAllInfo(allinfo => [...allinfo, fifi])
   }
@@ -82,9 +84,31 @@ export const GridSteps = () => {
           <WebCam imagensProps={addImages} />
         </Step>
         <Step label="Digital" key="3" icon={BiFingerprint}>
-        <Button onClick={addFinger} colorScheme='teal' w="200px">
-         Cadastra Digital
+        <Button onClick={addFinger} colorScheme='teal' w="200px" disabled={isLoading}>
+          Cadastra Digital
+          {
+            isLoading ?
+            <Spinner
+              thickness='4px'
+              speed='0.65s'
+              emptyColor='gray.200'
+              color='blue.500'
+              size='md'
+            />  
+            :
+            <div></div>
+          }
         </Button>
+
+        {
+          isLoading ?
+          <h3>
+            Coloque o dedo sobre o sensor, aguarde alguns segundos, e remova o dedo.
+            Repita o processo.
+          </h3>
+          :
+          <div></div>
+        }
         </Step>
       </Steps>
       {activeStep === steps.length ? (
