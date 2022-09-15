@@ -28,7 +28,7 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Cadastro', icon: FiHome, to: 'cadastro' },
-  { name: 'Reltório', icon: FiTrendingUp, to: 'relatorio' }
+  { name: 'Relatório', icon: FiTrendingUp, to: 'relatorio' }
   // { name: 'Notificação', icon: FiBell, to: 'notificacao' }
 ]
 function logout() {
