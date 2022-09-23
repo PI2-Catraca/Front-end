@@ -1,5 +1,8 @@
-import Main from 'components/Login'
+/* eslint-disable @next/next/link-passhref */
+import Login from 'components/Login'
 
-export default function Home() {
-  return <Main />
+function Home() {
+  return <Login />
 }
+
+export default Home

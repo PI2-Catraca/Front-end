@@ -1,7 +1,13 @@
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import { ChakraProvider } from '@chakra-ui/react'
-
+import { AuthProvider } from '../context/AuthContext'
+import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps'
+const theme = extendTheme({
+  components: {
+    Steps
+  }
+})
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -16,8 +22,10 @@ function App({ Component, pageProps }: AppProps) {
           content="A simple project starter to work with TypeScript, React, NextJS and Styled Components"
         />
       </Head>
-      <ChakraProvider>
-        <Component {...pageProps} />
+      <ChakraProvider resetCSS theme={theme}>
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </ChakraProvider>
     </>
   )
