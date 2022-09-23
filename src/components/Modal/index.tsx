@@ -15,7 +15,20 @@ import {
   IconButton,
   Image
 } from '@chakra-ui/react'
-
+async function DeletUser(allinfo) {
+  const options = {
+    method: 'DELETE',
+    url: `${process.env.NEXT_PUBLIC_API_URL}/usuario/excluir`,
+    headers: { 'Content-Type': 'application/json' },
+    data: {
+      cpf: allinfo.cpf
+    }
+  }
+  await axios
+    .request(options)
+    .then((response) => console.log(response))
+    .catch((error) => error)
+}
 const ModalCuston = ({ data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -46,12 +59,15 @@ const ModalCuston = ({ data }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            {/* <Button colorScheme="blue" mr={3} onClick={onClose}>
               Salvar
-            </Button>
+            </Button> */}
             <IconButton
               colorScheme="red"
               aria-label="Search database"
+              onClick={() => {
+                DeletUser(data.cpf), (onClose = { onClose })
+              }}
               icon={<DeleteIcon />}
             />{' '}
           </ModalFooter>
